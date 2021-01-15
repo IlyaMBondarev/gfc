@@ -170,6 +170,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 68px 15px 0;
   max-width: 1730px;
   margin: 0 auto;
+  position: relative;
+  z-index: 50;
 }
 @media (max-width: 1669px) {
   .header {
