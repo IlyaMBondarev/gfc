@@ -60,50 +60,182 @@ lists.forEach(list => {
 })
 
 //жалюзи
+
 let itemsBlock = document.querySelector('.offer__items');
 let items = itemsBlock.querySelectorAll('.item');
+let indexOfActiveItem = -1;
+let arrowsBlock = document.querySelector('.offer__navigation');
+let arrowPrev = arrowsBlock.querySelector('.offer__prev');
+let arrowNext = arrowsBlock.querySelector('.offer__next');
 
 for (let i = 0; i < items.length; i++) {
     items[i].addEventListener('click', () => {
-        let previous = itemsBlock.querySelector('.item-active');
-        if (previous !== items[i]) {
-            if (previous) {
-                previous.classList.remove('item-active');
-                previous.querySelector('.item__title').classList.remove('item__title-hidden');
-                previous.querySelector('.mask').classList.remove('mask-visible');
-                items[i].querySelector('.item__title').classList.remove('item__title-rotated');
-            }
-            items[i].classList.add('item-active');
-            items[i].querySelector('.item__title').classList.add('item__title-hidden');
-            items[i].querySelector('.mask').classList.add('mask-visible');
-            for (let j = 0; j < items.length; j++) {
-                if (j !== i) {
-                    items[j].querySelector('.item__title').classList.add('item__title-rotated');
+        if (document.documentElement.scrollWidth > 1270) {
+            if (indexOfActiveItem !== items[i]) {
+                if (indexOfActiveItem !== -1) {
+                    items[indexOfActiveItem].classList.remove('item-active');
+                    items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                    items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
                 }
+                indexOfActiveItem = i;
+                items[indexOfActiveItem].classList.add('item-active');
+                items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+                items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+                for (let j = 0; j < items.length; j++) {
+                    if (j !== indexOfActiveItem) {
+                        items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                        items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+                    }
+                }
+            } else {
+                items[indexOfActiveItem].classList.remove('item-active');
+                items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
+                for (let j = 0; j < items.length; j++) {
+                    if (j !== indexOfActiveItem) {
+                        items[j].querySelector('.item__title_hor').classList.add('item__title-visible');
+                        items[j].querySelector('.item__title_ver').classList.remove('item__title-visible');
+                    }
+                }
+                indexOfActiveItem = -1;
             }
         } else {
-            previous.classList.remove('item-active');
-            previous.querySelector('.item__title').classList.remove('item__title-hidden');
-            previous.querySelector('.mask').classList.remove('mask-visible');
-            for (let j = 0; j < items.length; j++) {
-                if (j !== i) {
-                    items[j].querySelector('.item__title').classList.remove('item__title-rotated');
+            if (items[indexOfActiveItem] !== items[i]) {
+                if (indexOfActiveItem !== -1) {
+                    items[indexOfActiveItem].classList.remove('item-active');
+                    items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                    items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
                 }
+                indexOfActiveItem = i;
+                items[indexOfActiveItem].classList.add('item-active');
+                items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+                items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+            } else {
+                items[indexOfActiveItem].classList.remove('item-active');
+                items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
+                indexOfActiveItem = -1;
             }
         }
     })
 }
 
-document.addEventListener('click', () => {
-    if (event.target !== itemsBlock && !(itemsBlock.contains(event.target))) {
-        let previous = itemsBlock.querySelector('.item-active');
-        if (previous) {
-            previous.classList.remove('item-active');
-            previous.querySelector('.item__title').classList.remove('item__title-hidden');
-            previous.querySelector('.mask').classList.remove('mask-visible');
-            for (let j = 0; j < items.length; j++) {
-                items[j].querySelector('.item__title').classList.remove('item__title-rotated');
+document.addEventListener('click', (event) => {
+    let isOnItems = false;
+    items.forEach(item => isOnItems = item.contains(event.target) ? true : isOnItems);
+    if (!(isOnItems) && !(arrowsBlock.contains(event.target))) {
+        if (document.documentElement.scrollWidth > 1270) {
+            if (indexOfActiveItem !== -1) {
+                items[indexOfActiveItem].classList.remove('item-active');
+                items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
+                for (let i = 0; i < items.length; i++) {
+                    items[i].querySelector('.item__title_hor').classList.add('item__title-visible');
+                    items[i].querySelector('.item__title_ver').classList.remove('item__title-visible');
+                }
+                indexOfActiveItem = -1;
+            }
+        } else if (indexOfActiveItem !== -1) {
+            items[indexOfActiveItem].classList.remove('item-active');
+            items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+            items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
+            indexOfActiveItem = -1;
+        }
+    }
+    isOnItems = false;
+})
+
+arrowNext.addEventListener('click', () => {
+    if (indexOfActiveItem === -1) {
+        indexOfActiveItem = 0;
+        items[indexOfActiveItem].classList.add('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+        for (let j = 0; j < items.length; j++) {
+            if (j !== indexOfActiveItem) {
+                items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
             }
         }
+    } else if (indexOfActiveItem === items.length - 1) {
+        items[indexOfActiveItem].classList.remove('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
+        indexOfActiveItem = 0;
+        items[indexOfActiveItem].classList.add('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+        for (let j = 0; j < items.length; j++) {
+            if (j !== indexOfActiveItem) {
+                items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+            }
+        }
+    } else {
+        items[indexOfActiveItem].classList.remove('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
+        indexOfActiveItem++;
+        items[indexOfActiveItem].classList.add('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+        for (let j = 0; j < items.length; j++) {
+            if (j !== indexOfActiveItem) {
+                items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+            }
+        }
+
+    }
+})
+
+arrowPrev.addEventListener('click', () => {
+    if (indexOfActiveItem === -1) {
+        indexOfActiveItem = items.length - 1;
+        items[indexOfActiveItem].classList.add('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+        for (let j = 0; j < items.length; j++) {
+            if (j !== indexOfActiveItem) {
+                items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+            }
+        }
+    } else if (indexOfActiveItem === 0) {
+        items[indexOfActiveItem].classList.remove('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
+        indexOfActiveItem = items.length - 1;
+        items[indexOfActiveItem].classList.add('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+        for (let j = 0; j < items.length; j++) {
+            if (j !== indexOfActiveItem) {
+                items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+            }
+        }
+    } else {
+        items[indexOfActiveItem].classList.remove('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
+        indexOfActiveItem--;
+        items[indexOfActiveItem].classList.add('item-active');
+        items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+        items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+        items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+        for (let j = 0; j < items.length; j++) {
+            if (j !== indexOfActiveItem) {
+                items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+            }
+        }
+
     }
 })

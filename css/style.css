@@ -531,7 +531,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 .item-active {
-  width: 50%;
+  width: 70%;
 }
 @media (max-width: 1270px) {
   .item {
@@ -562,17 +562,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 .item__title {
   position: relative;
-  top: 670px;
   width: 100%;
   font-family: "bold";
   font-size: 36px;
   line-height: 110%;
   color: #ffffff;
   padding: 0 25px;
-  transition: transform 0s 0.2s, width 0s 0.2s, opacity 0.4s ease;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+.item__title_hor {
+  top: 670px;
 }
 @media (max-width: 1270px) {
-  .item__title {
+  .item__title_hor {
     position: absolute;
     bottom: 30px;
     top: auto;
@@ -580,27 +583,33 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 @media (max-width: 1270px) and (max-width: 1023px) {
-  .item__title {
+  .item__title_hor {
     font-size: 24px;
   }
 }
 @media (max-width: 1270px) and (max-width: 500px) {
-  .item__title {
+  .item__title_hor {
     font-size: 20px;
     padding: 0 15px;
     bottom: 15px;
   }
 }
-.item__title-rotated {
-  animation: 1s opacity;
-  transform: translateX(16%) rotate(-90deg) translateX(-200px);
+.item__title_ver {
+  position: absolute;
+  left: 50%;
+  top: 830px;
   transform-origin: top left;
+  transform: rotate(-90deg) translateY(-50%);
   width: 800px;
-  transition: transform 0.5s ease 0.2s, width 0.5s 0.5s;
 }
-.item__title-hidden {
-  opacity: 0;
-  transition: opacity 0.4s ease;
+@media (max-width: 1270px) {
+  .item__title_ver {
+    display: none;
+  }
+}
+.item__title-visible {
+  opacity: 1;
+  transition: opacity 0.3s ease 0.4s;
 }
 
 @keyframes opacity {
@@ -628,11 +637,20 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(49, 112, 232, 0.7);
   opacity: 0;
   padding: 16% 8% 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
+}
+@media (max-width: 1270px) {
+  .mask {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .mask-visible {
   opacity: 1;
-  transition: opacity 0.5s ease 0.5s;
+  transition: opacity 0.3s ease 0.4s;
 }
 .mask__title {
   color: #ffffff;
@@ -640,11 +658,36 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 120%;
   font-family: "bold";
 }
+@media (max-width: 1080px) {
+  .mask__title {
+    font-size: 24px;
+  }
+}
+@media (max-width: 560px) {
+  .mask__title {
+    font-size: 20px;
+  }
+}
 .mask__list {
   margin-top: 4%;
   font-size: 24px;
   line-height: 130%;
   color: #ffffff;
+}
+@media (max-width: 1270px) {
+  .mask__list {
+    margin-top: 15px;
+  }
+}
+@media (max-width: 1080px) {
+  .mask__list {
+    font-size: 16px;
+  }
+}
+@media (max-width: 560px) {
+  .mask__list {
+    font-size: 14px;
+  }
 }
 
 .advantages {
