@@ -530,6 +530,9 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   cursor: pointer;
 }
+.item-active {
+  width: 50%;
+}
 @media (max-width: 1270px) {
   .item {
     width: 45%;
@@ -560,11 +563,13 @@ h1, h2, h3, h4, h5, h6 {
 .item__title {
   position: relative;
   top: 670px;
+  width: 100%;
   font-family: "bold";
   font-size: 36px;
   line-height: 110%;
   color: #ffffff;
   padding: 0 25px;
+  transition: transform 0s 0.2s, width 0s 0.2s, opacity 0.4s ease;
 }
 @media (max-width: 1270px) {
   .item__title {
@@ -585,6 +590,61 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 15px;
     bottom: 15px;
   }
+}
+.item__title-rotated {
+  animation: 1s opacity;
+  transform: translateX(16%) rotate(-90deg) translateX(-200px);
+  transform-origin: top left;
+  width: 800px;
+  transition: transform 0.5s ease 0.2s, width 0.5s 0.5s;
+}
+.item__title-hidden {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.mask {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(49, 112, 232, 0.7);
+  opacity: 0;
+  padding: 16% 8% 0;
+  transition: opacity 0.4s ease;
+}
+.mask-visible {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.5s;
+}
+.mask__title {
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 120%;
+  font-family: "bold";
+}
+.mask__list {
+  margin-top: 4%;
+  font-size: 24px;
+  line-height: 130%;
+  color: #ffffff;
 }
 
 .advantages {
