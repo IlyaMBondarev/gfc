@@ -268,6 +268,13 @@ let scopedArray = 1;
 $(document).ready(function() {
     svgMap.style.opacity = '1';
     setTimeout(() => {
+        for(let i = 0; i < svgItems.length; i++) {
+            setTimeout(() => {
+                svgItems[i].style.animation = '1s svg-show forwards';
+            }, speed * (i + 1))
+        }
+    }, halfOfSpeed)
+    setTimeout(() => {
         if (document.documentElement.scrollWidth < 500) {
             scope = 0.25;
             scopedArray = 0.5;
@@ -283,21 +290,14 @@ $(document).ready(function() {
             let path = `<path d="M${x} ${y} C ${x} ${y-(scope*svgPaths[i][2])}, ${xe} ${ye-(scope*svgPaths[i][2])} ${xe} ${ye}" stroke="white" fill="transparent" class="svg-path" stroke-width="2"></path>`;
             svgPathsBlock.innerHTML += path;
         }
-        let svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
-        setTimeout(() => {
-            for(let i = 0; i < svgNewPaths.length; i++) {
-                svgNewPaths[i].style.opacity = `1`;
-                svgNewPaths[i].style.strokeDasharray = `0 ${500 * scopedArray} 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`;
-                svgNewPaths[i].style.transitionDelay = `${0.8 *  i}s`;
-                svgNewPaths[i].style.strokeDashoffset = `${500 * scopedArray}`;
-            }
-        }, 20)
     }, halfOfSpeed * svgItems.length)
     setTimeout(() => {
-        for(let i = 0; i < svgItems.length; i++) {
-            setTimeout(() => {
-                svgItems[i].style.animation = '1s svg-show forwards';
-            }, speed * (i + 1))
+        let svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
+        for(let i = 0; i < svgNewPaths.length; i++) {
+            svgNewPaths[i].style.opacity = `1`;
+            svgNewPaths[i].style.strokeDasharray = `0 ${500 * scopedArray} 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`;
+            svgNewPaths[i].style.transitionDelay = `${0.8 *  i}s`;
+            svgNewPaths[i].style.strokeDashoffset = `${500 * scopedArray}`;
         }
-    }, halfOfSpeed)
+    }, halfOfSpeed * svgItems.length + 20)
 })
