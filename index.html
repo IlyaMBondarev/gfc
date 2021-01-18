@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
 </head>
 <body>
 <main class="page">
@@ -53,8 +54,8 @@
                     <button class="button">Отправить заявку</button>
                 </div>
             </div>
-            <div class="svg-animation">
-                <div class="svg-map">
+            <div id="svg" class="svg-animation">
+                <div id="map" class="svg-map">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                         <style type="text/css">
                             .map {
@@ -4170,7 +4171,7 @@
                     </g>
                         </g>
                     </svg>
-                    <div class="svg-items">
+                    <div id="items" class="svg-items">
                         <img src="img/main-screen-svg/car.svg" alt="" class="svg-item svg-car">
                         <img src="img/main-screen-svg/car2.svg" alt="" class="svg-item svg-car2">
                         <img src="img/main-screen-svg/car3.svg" alt="" class="svg-item svg-car3">

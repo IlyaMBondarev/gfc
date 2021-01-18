@@ -239,3 +239,21 @@ arrowPrev.addEventListener('click', () => {
 
     }
 })
+
+// svg-анимация
+
+let svg = document.getElementById('svg');
+let svgMap = document.getElementById('map');
+let svgItemsBlock = document.getElementById('items');
+let svgItems = svgItemsBlock.querySelectorAll('img');
+
+$(document).ready(function() {
+    svgMap.style.opacity = '1';
+    setTimeout(() => {
+        for(let i = 0; i < svgItems.length; i++) {
+            setTimeout(() => {
+                svgItems[i].style.animation = '1s svg-show forwards';
+            }, 600 * (i + 1))
+        }
+    }, 300)
+})
