@@ -493,6 +493,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.5s ease;
+  transform: scale(1) !important;
 }
 @media (max-width: 1280px) {
   .svg-map {
@@ -544,11 +545,6 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 3;
 }
 
-.svg-item {
-  position: absolute;
-  transform: scale(0);
-}
-
 @keyframes svg-show {
   0% {
     transform: scale(0);
@@ -569,73 +565,66 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1);
   }
 }
-.svg-car {
+.svg-item {
+  position: absolute;
+  transform: scale(0);
+}
+.svg-item1 {
   width: 8%;
   top: 48.6%;
   left: 20%;
 }
-
-.svg-car2 {
+.svg-item2 {
   width: 9%;
   top: 44.5%;
   left: 45.5%;
 }
-
-.svg-car3 {
+.svg-item3 {
   width: 11%;
   top: 25.5%;
   left: 32%;
 }
-
-.svg-box {
+.svg-item4 {
   width: 8%;
   top: 39%;
   left: 13%;
 }
-
-.svg-house {
+.svg-item5 {
   width: 8%;
   top: 31%;
   left: 17%;
 }
-
-.svg-plane {
+.svg-item6 {
   width: 13%;
   top: 32%;
   left: 43%;
 }
-
-.svg-ship {
+.svg-item7 {
   width: 18%;
   top: 36%;
   left: 24.5%;
 }
-
-.svg-stand {
+.svg-item8 {
   width: 14%;
   top: 50%;
   left: 33%;
 }
-
-.svg-house2 {
+.svg-item9 {
   width: 8%;
   top: 34%;
   left: 55%;
 }
-
-.svg-car4 {
+.svg-item10 {
   width: 9%;
   top: 31.5%;
   left: 64%;
 }
-
-.svg-car5 {
+.svg-item11 {
   width: 11%;
   top: 29%;
   left: 71.5%;
 }
-
-.svg-cart {
+.svg-item12 {
   width: 10%;
   top: 50%;
   left: 80%;
