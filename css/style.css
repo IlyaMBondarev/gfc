@@ -530,8 +530,8 @@ h1, h2, h3, h4, h5, h6 {
 .svg-map > svg {
   width: 100%;
 }
-.svg-map .lines path {
-  opacity: 1;
+.svg-map .lines {
+  display: none;
 }
 
 .svg-items {
@@ -543,6 +543,17 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   z-index: 3;
+}
+
+.svg-paths {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 
 @keyframes svg-show {

@@ -244,16 +244,44 @@ arrowPrev.addEventListener('click', () => {
 
 let svg = document.getElementById('svg');
 let svgMap = document.getElementById('map');
-let svgItemsBlock = document.getElementById('items');
+let svgPathsBlock = document.getElementById('svg-paths');
+let svgPaths = [
+    [0, 3],
+    [3, 6],
+    [6, 5],
+    [6, 4],
+    [4, 2],
+    [0, 7],
+    [7, 1],
+    [5, 8],
+    [8, 9],
+    [9, 10],
+    [10, 11],
+]
+let svgItemsBlock = document.getElementById('svg');
 let svgItems = svgItemsBlock.querySelectorAll('img');
+let speed = 600;
+let halfOfSpeed = speed/2;
 
 $(document).ready(function() {
     svgMap.style.opacity = '1';
     setTimeout(() => {
+        for(let i = 0; i < svgPaths.length; i++) {
+            setTimeout(() => {
+                let x = svgItems[svgPaths[i][0]].offsetLeft + (svgItems[svgPaths[i][0]].offsetWidth) / 2;
+                let y = svgItems[svgPaths[i][0]].offsetTop + (svgItems[svgPaths[i][0]].offsetHeight) / 2;
+                let xe = svgItems[svgPaths[i][1]].offsetLeft + (svgItems[svgPaths[i][1]].offsetWidth) / 2;
+                let ye = svgItems[svgPaths[i][1]].offsetTop + (svgItems[svgPaths[i][1]].offsetHeight) / 2;
+                let path = `<path d="M${x} ${y} C ${x} ${y-150}, ${xe} ${ye-150} ${xe} ${ye}" stroke="white" fill="transparent" stroke-dasharray="10" stroke-width="5"></path>`;
+                svgPathsBlock.innerHTML += path;
+            }, speed * (i + 1))
+        }
+    }, halfOfSpeed * svgItems.length)
+    setTimeout(() => {
         for(let i = 0; i < svgItems.length; i++) {
             setTimeout(() => {
                 svgItems[i].style.animation = '1s svg-show forwards';
-            }, 600 * (i + 1))
+            }, speed * (i + 1))
         }
-    }, 300)
+    }, halfOfSpeed)
 })
