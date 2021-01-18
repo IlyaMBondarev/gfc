@@ -263,14 +263,17 @@ let svgItems = svgItemsBlock.querySelectorAll('img');
 let speed = 600;
 let halfOfSpeed = speed/2;
 let scope = 1;
+let scopedArray = 1;
 
 $(document).ready(function() {
     svgMap.style.opacity = '1';
     setTimeout(() => {
         if (document.documentElement.scrollWidth < 500) {
             scope = 0.25;
+            scopedArray = 0.5;
         } else if (document.documentElement.scrollWidth < 1281) {
             scope = 0.5;
+            scopedArray = 0.75;
         }
         for(let i = 0; i < svgPaths.length; i++) {
             let x = svgItems[svgPaths[i][0]].offsetLeft + (svgItems[svgPaths[i][0]].offsetWidth) / 2;
@@ -283,7 +286,10 @@ $(document).ready(function() {
         let svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
         setTimeout(() => {
             for(let i = 0; i < svgNewPaths.length; i++) {
-                svgNewPaths[i].style.animation = `0.8s ${0.8 *  i}s svg-stroke forwards`;
+                svgNewPaths[i].style.opacity = `1`;
+                svgNewPaths[i].style.strokeDasharray = `0 ${500 * scopedArray} 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`;
+                svgNewPaths[i].style.transitionDelay = `${0.8 *  i}s`;
+                svgNewPaths[i].style.strokeDashoffset = `${500 * scopedArray}`;
             }
         }, 20)
     }, halfOfSpeed * svgItems.length)

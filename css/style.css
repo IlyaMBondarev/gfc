@@ -557,8 +557,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .svg-path {
-  stroke-dasharray: 0 500 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5;
   stroke-dashoffset: 0;
+  opacity: 0;
+  transition: stroke-dashoffset 0.8s ease;
 }
 
 @keyframes svg-show {
@@ -579,14 +580,6 @@ h1, h2, h3, h4, h5, h6 {
   }
   100% {
     transform: scale(1);
-  }
-}
-@keyframes svg-stroke {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: 500;
   }
 }
 .svg-item {
