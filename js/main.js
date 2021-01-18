@@ -246,36 +246,46 @@ let svg = document.getElementById('svg');
 let svgMap = document.getElementById('map');
 let svgPathsBlock = document.getElementById('svg-paths');
 let svgPaths = [
-    [0, 3],
-    [3, 6],
-    [6, 5],
-    [6, 4],
-    [4, 2],
-    [0, 7],
-    [7, 1],
-    [5, 8],
-    [8, 9],
-    [9, 10],
-    [10, 11],
+    [3, 0, 200],
+    [6, 3, 150],
+    [5, 6, 200],
+    [4, 6, 200],
+    [2, 4, 150],
+    [7, 0, 150],
+    [1, 7, 250],
+    [8, 5, 200],
+    [9, 8, 200],
+    [10, 9, 200],
+    [11, 10, 200],
 ]
 let svgItemsBlock = document.getElementById('svg');
 let svgItems = svgItemsBlock.querySelectorAll('img');
 let speed = 600;
 let halfOfSpeed = speed/2;
+let scope = 1;
 
 $(document).ready(function() {
     svgMap.style.opacity = '1';
     setTimeout(() => {
-        for(let i = 0; i < svgPaths.length; i++) {
-            setTimeout(() => {
-                let x = svgItems[svgPaths[i][0]].offsetLeft + (svgItems[svgPaths[i][0]].offsetWidth) / 2;
-                let y = svgItems[svgPaths[i][0]].offsetTop + (svgItems[svgPaths[i][0]].offsetHeight) / 2;
-                let xe = svgItems[svgPaths[i][1]].offsetLeft + (svgItems[svgPaths[i][1]].offsetWidth) / 2;
-                let ye = svgItems[svgPaths[i][1]].offsetTop + (svgItems[svgPaths[i][1]].offsetHeight) / 2;
-                let path = `<path d="M${x} ${y} C ${x} ${y-150}, ${xe} ${ye-150} ${xe} ${ye}" stroke="white" fill="transparent" stroke-dasharray="10" stroke-width="5"></path>`;
-                svgPathsBlock.innerHTML += path;
-            }, speed * (i + 1))
+        if (document.documentElement.scrollWidth < 500) {
+            scope = 0.25;
+        } else if (document.documentElement.scrollWidth < 1281) {
+            scope = 0.5;
         }
+        for(let i = 0; i < svgPaths.length; i++) {
+            let x = svgItems[svgPaths[i][0]].offsetLeft + (svgItems[svgPaths[i][0]].offsetWidth) / 2;
+            let y = svgItems[svgPaths[i][0]].offsetTop + (svgItems[svgPaths[i][0]].offsetHeight) / 2;
+            let xe = svgItems[svgPaths[i][1]].offsetLeft + (svgItems[svgPaths[i][1]].offsetWidth) / 2;
+            let ye = svgItems[svgPaths[i][1]].offsetTop + (svgItems[svgPaths[i][1]].offsetHeight) / 2;
+            let path = `<path d="M${x} ${y} C ${x} ${y-(scope*svgPaths[i][2])}, ${xe} ${ye-(scope*svgPaths[i][2])} ${xe} ${ye}" stroke="white" fill="transparent" class="svg-path" stroke-width="2"></path>`;
+            svgPathsBlock.innerHTML += path;
+        }
+        let svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
+        setTimeout(() => {
+            for(let i = 0; i < svgNewPaths.length; i++) {
+                svgNewPaths[i].style.animation = `0.8s ${0.8 *  i}s svg-stroke forwards`;
+            }
+        }, 20)
     }, halfOfSpeed * svgItems.length)
     setTimeout(() => {
         for(let i = 0; i < svgItems.length; i++) {
