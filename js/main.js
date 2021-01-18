@@ -11,27 +11,27 @@ let specialScrollRows = specialScroll.querySelector('.about__rows');
 let specialScrollRow = specialScrollRows.querySelectorAll('.about__row');
 
 toScroll.forEach(toScroll => {
-    if (toScroll.offsetTop > document.documentElement.scrollTop + document.documentElement.clientHeight - 150) {
+    if (toScroll.offsetTop > document.documentElement.scrollTop + (0.8*document.documentElement.clientHeight)) {
         toScroll.classList.add('hidden');
     }
 })
 
 
 specialScrollRow.forEach(row => {
-    if (row.offsetTop > document.documentElement.scrollTop + document.documentElement.clientHeight - 250) {
+    if (row.offsetTop > document.documentElement.scrollTop + (0.8*document.documentElement.clientHeight)) {
         row.classList.add('row-hidden');
     }
 })
 
 function scrollCheck() {
     toScroll.forEach(toScroll => {
-        if (toScroll.offsetTop <= document.documentElement.scrollTop + document.documentElement.clientHeight - 250) {
+        if (toScroll.offsetTop <= document.documentElement.scrollTop + (0.8*document.documentElement.clientHeight)) {
             toScroll.classList.add('visible');
             toScroll.classList.remove('hidden');
         }
     })
     specialScrollRow.forEach(row => {
-        if (row.offsetTop <= document.documentElement.scrollTop + document.documentElement.clientHeight - 250) {
+        if (row.offsetTop <= document.documentElement.scrollTop + (0.8*document.documentElement.clientHeight)) {
             row.classList.add('row-visible');
             row.classList.remove('row-hidden');
         }
