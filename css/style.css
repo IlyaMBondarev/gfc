@@ -196,7 +196,6 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1730px;
   margin: 0 auto;
   position: relative;
-  z-index: 50;
 }
 @media (max-width: 1669px) {
   .header {
@@ -379,16 +378,22 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   align-items: flex-start;
   position: relative;
+  overflow: hidden;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1280px) {
   .main-screen {
     min-height: 1000px;
-    overflow: hidden;
     background: linear-gradient(15.73deg, #1A1C21 0%, #2A2E39 30.3%, #373E49 60.6%, #6E7175 102.06%);
+  }
+}
+@media (max-width: 500px) {
+  .main-screen {
+    min-height: 800px;
   }
 }
 .main-screen > .header, .main-screen > .container {
   width: 100%;
+  z-index: 50;
 }
 .main-screen > .container {
   flex-grow: 1;
@@ -401,7 +406,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: flex-start;
   justify-content: center;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1280px) {
   .main-screen__main {
     align-items: center;
   }
@@ -418,12 +423,17 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
   }
 }
+@media (max-width: 350px) {
+  .main-screen__title {
+    font-size: 40px;
+  }
+}
 .main-screen__content {
   font-size: 28px;
   color: #ffffff;
   margin: 45px 0;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1280px) {
   .main-screen__content {
     margin: 27px 0 60px;
   }
@@ -434,23 +444,62 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
   }
 }
-.main-screen__svg {
+
+.svg-animation {
   position: absolute;
+  background-color: transparent;
   top: auto;
+  width: 100%;
+  height: 100%;
   bottom: auto;
-  right: 0;
+  right: -50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  z-index: 1;
 }
-@media (max-width: 1000px) {
-  .main-screen__svg {
+@media (max-width: 1441px) {
+  .svg-animation {
+    right: -40%;
+  }
+}
+@media (max-width: 1280px) {
+  .svg-animation {
     position: static;
     flex-grow: 1;
     max-height: 500px;
+    height: 500px;
+    width: 100%;
     max-width: 100%;
-    margin: 0 20px;
+    padding: 0 20px;
+  }
+}
+@media (max-width: 500px) {
+  .svg-animation {
+    max-height: 300px;
+    height: 300px;
+  }
+}
+.svg-animation > img {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 1920px;
+}
+@media (max-width: 1280px) {
+  .svg-animation > img {
+    min-width: 1280px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 767px) {
+  .svg-animation > img {
+    min-width: 150%;
+    width: auto;
   }
 }
 
@@ -469,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
 .offer:after {
   content: "";
   width: 100%;
-  height: 880px;
+  height: 700px;
   max-height: 80%;
   display: block;
   position: absolute;
@@ -482,7 +531,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .offer__items {
   display: flex;
-  margin-top: 112px;
+  margin-top: 60px;
 }
 @media (max-width: 1270px) {
   .offer__items {
@@ -524,7 +573,7 @@ h1, h2, h3, h4, h5, h6 {
 .item {
   width: 25%;
   min-width: 150px;
-  height: 900px;
+  height: 750px;
   transition: width 0.5s ease;
   position: relative;
   overflow: hidden;
@@ -548,9 +597,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .item__back {
   position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
+  height: 900px;
+  bottom: 0;
+  left: 50%;
   transform: translateX(-50%);
 }
 @media (max-width: 1270px) {
@@ -558,6 +607,7 @@ h1, h2, h3, h4, h5, h6 {
     position: static;
     transform: none;
     width: 100%;
+    height: 100%;
   }
 }
 .item__title {
@@ -572,7 +622,7 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
 }
 .item__title_hor {
-  top: 670px;
+  top: 530px;
 }
 @media (max-width: 1270px) {
   .item__title_hor {
@@ -597,10 +647,10 @@ h1, h2, h3, h4, h5, h6 {
 .item__title_ver {
   position: absolute;
   left: 50%;
-  top: 830px;
+  top: 680px;
   transform-origin: top left;
   transform: rotate(-90deg) translateY(-50%);
-  width: 800px;
+  width: 600px;
 }
 @media (max-width: 1270px) {
   .item__title_ver {
@@ -612,20 +662,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 0.3s ease 0.4s;
 }
 
-@keyframes opacity {
-  0% {
-    opacity: 1;
-  }
-  20% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .mask {
   position: absolute;
   height: 100%;
