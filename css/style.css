@@ -672,7 +672,6 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.5s ease;
-  transform: scale(1) !important;
 }
 @media (max-width: 1280px) {
   .svg-map {
@@ -683,7 +682,7 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 1280px;
     max-height: 1280px;
     left: 50%;
-    transform: translateX(-50%) scale(1) !important;
+    transform: translateX(-50%);
   }
 }
 @media (max-width: 767px) {
