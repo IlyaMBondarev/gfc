@@ -246,9 +246,6 @@ h1, h2, h3, h4, h5, h6 {
           user-select: auto;
   opacity: 1;
 }
-.popup-callback__form {
-  overflow: auto;
-}
 .popup-callback__title {
   margin-bottom: 30px;
   font-family: "bold";
