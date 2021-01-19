@@ -302,6 +302,37 @@ $(document).ready(function() {
     }, halfOfSpeed * svgItems.length + 20)
 })
 
+$(window).resize(function() {
+    if (document.documentElement.scrollWidth < 500) {
+        scope = 0.25;
+        scopedArray = 0.5;
+    } else if (document.documentElement.scrollWidth < 1281) {
+        scope = 0.5;
+        scopedArray = 0.75;
+    } else {
+        scope = 1;
+        scopedArray = 1;
+    }
+    svgPathsBlock.innerHTML = '';
+    for(let i = 0; i < svgPaths.length; i++) {
+        let x = svgItems[svgPaths[i][0]].offsetLeft + (svgItems[svgPaths[i][0]].offsetWidth) / 2;
+        let y = svgItems[svgPaths[i][0]].offsetTop + (svgItems[svgPaths[i][0]].offsetHeight) / 2;
+        let xe = svgItems[svgPaths[i][1]].offsetLeft + (svgItems[svgPaths[i][1]].offsetWidth) / 2;
+        let ye = svgItems[svgPaths[i][1]].offsetTop + (svgItems[svgPaths[i][1]].offsetHeight) / 2;
+        let path = `<path d="M${x} ${y} C ${x} ${y-(scope*svgPaths[i][2])}, ${xe} ${ye-(scope*svgPaths[i][2])} ${xe} ${ye}" stroke="white" fill="transparent" class="svg-path" stroke-width="2"></path>`;
+        svgPathsBlock.innerHTML += path;
+    }
+    setTimeout(() => {
+        let svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
+        for(let i = 0; i < svgNewPaths.length; i++) {
+            svgNewPaths[i].style.opacity = `1`;
+            svgNewPaths[i].style.strokeDasharray = `0 ${500 * scopedArray} 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`;
+            svgNewPaths[i].style.transitionDelay = `${0.8 *  i}s`;
+            svgNewPaths[i].style.strokeDashoffset = `${500 * scopedArray}`;
+        }
+    }, 20)
+})
+
 //форма
 
 //phone mask

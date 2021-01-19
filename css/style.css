@@ -305,11 +305,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(-50%, -50%);
   padding: 60px 37px 60px 50px;
   box-shadow: 0px 6px 27px rgba(150, 150, 150, 0.25);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: auto;
 }
 @media (max-width: 1023px) {
   .popup-thanks {
@@ -343,6 +338,13 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-user-select: auto;
           user-select: auto;
   opacity: 1;
+}
+.popup-thanks__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
 }
 .popup-thanks__img {
   margin-bottom: 37px;
@@ -661,12 +663,12 @@ h1, h2, h3, h4, h5, h6 {
 .svg-map {
   position: absolute;
   left: 0;
-  min-width: 1920px;
-  min-height: 1920px;
-  width: 1920px;
-  height: 1920px;
-  max-width: 1920px;
-  max-height: 1920px;
+  min-width: 177.777778vh;
+  min-height: 177.777778vh;
+  width: 177.777778vh;
+  height: 177.777778vh;
+  max-width: 177.777778vh;
+  max-height: 177.777778vh;
   z-index: 1;
   opacity: 0;
   transition: opacity 0.5s ease;
