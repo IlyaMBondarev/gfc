@@ -301,3 +301,109 @@ $(document).ready(function() {
         }
     }, halfOfSpeed * svgItems.length + 20)
 })
+
+//форма
+
+//phone mask
+
+function mask(event) {
+    let matrix = "+7 (___) ___-__-__",
+        i = 0,
+        def = matrix.replace(/\D/g, ""),
+        val = this.value.replace(/\D/g, "");
+    if (def.length >= val.length) val = def;
+    this.value = matrix.replace(/./g, function (a) {
+        return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+    });
+    if (event.type === "blur") {
+        if (this.value.length === 2) this.value = ""
+    }
+}
+
+let phones = document.querySelectorAll("._phone");
+phones.forEach(phone => phone.addEventListener("input", mask, false));
+phones.forEach(phone => phone.addEventListener("focus", mask, false));
+phones.forEach(phone => phone.addEventListener("blur", mask, false));
+
+// validation
+
+function formSend(form) {
+    let error = formValidate(form);
+
+    if (error === 0) {
+        //отправка формы
+        return true;
+    }
+    return false;
+}
+
+function formValidate(form) {
+    let error = 0;
+    let formReq = form.querySelectorAll('._req');
+
+    for (let index = 0; index < formReq.length; index++) {
+        const input = formReq[index];
+        input.classList.remove('_error');
+
+        if (input.classList.contains('_phone')) {
+            if (input.value.length < 18) {
+                input.classList.add('_error');
+                error++;
+            }
+        } else {
+            if (input.value.length < 3 || input.value.length > 32) {
+                input.classList.add('_error');
+                error++;
+            }
+        }
+    }
+    return error;
+}
+
+if ($('.popup-callback-bg').length) {
+
+    let popupCallbackBackground = document.querySelector('.popup-callback-bg');
+    let popupCallbackOpenBtns = document.querySelectorAll('.popup-callback-open-btn');
+    let popupCallbackCloseBtn = popupCallbackBackground.querySelector('.popup-callback__close');
+    let popupCallbackForm = popupCallbackBackground.querySelector('.popup-callback__form');
+
+    let popupThanksBackground = document.querySelector('.popup-thanks-bg');
+    let popupThanksCloseBtns = popupThanksBackground.querySelectorAll('.popup-thanks__close');
+
+    popupCallbackForm.addEventListener('submit', event => {
+        event.preventDefault();
+        let isSend = formSend(popupCallbackForm);
+        if (isSend) {
+            popupThanksBackground.classList.add('popup-thanks-bg-visible');
+            popupCallbackBackground.classList.remove('popup-callback-bg-visible');
+        }
+    });
+
+    popupCallbackOpenBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            popupCallbackBackground.classList.add('popup-callback-bg-visible');
+        });
+    })
+
+    popupCallbackBackground.addEventListener('click', (event) => {
+        if (event.target === popupCallbackBackground) {
+            popupCallbackBackground.classList.remove('popup-callback-bg-visible');
+        }
+    });
+
+    popupCallbackCloseBtn.addEventListener('click', () => {
+        popupCallbackBackground.classList.remove('popup-callback-bg-visible');
+    });
+
+    popupThanksBackground.addEventListener('click', (event) => {
+        if (event.target === popupThanksBackground) {
+            popupThanksBackground.classList.remove('popup-thanks-bg-visible');
+        }
+    });
+
+    popupThanksCloseBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            popupThanksBackground.classList.remove('popup-thanks-bg-visible');
+        });
+    })
+}

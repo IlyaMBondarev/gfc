@@ -87,6 +87,7 @@
   transition: all 0.4s ease;
   border-radius: 12px;
   box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+  min-width: 187px;
 }
 @media (max-width: 767px) {
   .button {
@@ -113,6 +114,13 @@
 .white-button:active {
   color: #2F70EC;
   background-color: #ffffff;
+}
+
+.popup-close {
+  position: absolute;
+  top: 23px;
+  right: 18px;
+  cursor: pointer;
 }
 
 * {
@@ -189,6 +197,170 @@ img, svg {
 h1, h2, h3, h4, h5, h6 {
   font-weight: inherit;
   font-size: inherit;
+}
+
+.popup-callback {
+  background-color: #ffffff;
+  width: 39%;
+  min-width: 300px;
+  min-height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 60px 37px 60px 50px;
+  box-shadow: 0px 6px 27px rgba(150, 150, 150, 0.25);
+  overflow: auto;
+}
+@media (max-width: 1023px) {
+  .popup-callback {
+    width: 70%;
+  }
+}
+@media (max-width: 500px) {
+  .popup-callback {
+    padding: 40px 20px 40px 20px;
+  }
+}
+.popup-callback-bg {
+  position: fixed;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -500;
+  visibility: hidden;
+  -webkit-user-select: none;
+          user-select: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.popup-callback-bg-visible {
+  visibility: visible;
+  z-index: 500;
+  -webkit-user-select: auto;
+          user-select: auto;
+  opacity: 1;
+}
+.popup-callback__title {
+  margin-bottom: 30px;
+  font-family: "bold";
+  font-size: 24px;
+  color: #23242A;
+}
+.popup-callback__block {
+  margin-bottom: 30px;
+  height: 56px;
+  position: relative;
+}
+.popup-callback__block label {
+  position: absolute;
+  left: 12px;
+  top: -8px;
+  background-color: #ffffff;
+  font-size: 16px;
+  color: #23242A;
+  display: inline-block;
+  padding: 0 3px;
+}
+.popup-callback__block input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #dcdedf;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #23242A;
+  padding: 12px;
+  -webkit-user-select: none;
+          user-select: none;
+}
+.popup-callback__block input._error + span {
+  opacity: 1;
+  -webkit-user-select: text;
+          user-select: text;
+}
+.popup-callback__block span {
+  position: absolute;
+  bottom: -16px;
+  left: 12px;
+  font-size: 14px;
+  color: red;
+  white-space: nowrap;
+  opacity: 0;
+  -webkit-user-select: none;
+          user-select: none;
+}
+
+.popup-thanks {
+  background-color: #ffffff;
+  width: 39%;
+  min-width: 300px;
+  min-height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 60px 37px 60px 50px;
+  box-shadow: 0px 6px 27px rgba(150, 150, 150, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+@media (max-width: 1023px) {
+  .popup-thanks {
+    width: 70%;
+  }
+}
+@media (max-width: 500px) {
+  .popup-thanks {
+    padding: 40px 20px 40px 20px;
+  }
+}
+.popup-thanks-bg {
+  position: fixed;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -600;
+  visibility: hidden;
+  -webkit-user-select: none;
+          user-select: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.popup-thanks-bg-visible {
+  visibility: visible;
+  z-index: 600;
+  -webkit-user-select: auto;
+          user-select: auto;
+  opacity: 1;
+}
+.popup-thanks__img {
+  margin-bottom: 37px;
+}
+.popup-thanks__title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-family: "bold";
+  font-size: 24px;
+  color: #23242A;
+}
+.popup-thanks__subtitle {
+  text-align: center;
+  max-width: 370px;
+  margin-bottom: 56px;
+  color: #23242A;
+  font-size: 16px;
+  line-height: 150%;
 }
 
 .header {
@@ -313,7 +485,7 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 300;
   transition: right 0.8s ease;
   display: flex;
   justify-content: flex-end;
@@ -393,6 +565,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .main-screen > .header, .main-screen > .container {
   width: 100%;
+}
+.main-screen > .header {
+  z-index: 100;
+}
+.main-screen > .container {
   z-index: 50;
 }
 .main-screen > .container {

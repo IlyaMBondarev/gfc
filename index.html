@@ -10,7 +10,46 @@
 </head>
 <body>
 <main class="page">
-    <div class="content">
+<div class="popup-callback-bg popup-bg">
+    <div class="popup-callback popup">
+        <div class="popup-callback__close popup-close">
+            <img src="img/cancel.svg" alt="">
+        </div>
+        <form action="#" class="popup-callback__form form">
+            <p class="popup-callback__title">Отправить заявку</p>
+            <div class="popup-callback__block">
+                <label for="name">Имя</label>
+                <input id="name" type="text" placeholder="Алиса" class="_req">
+                <span>Поле заполнено неверно!</span>
+            </div>
+            <div class="popup-callback__block">
+                <label for="phone">Телефон</label>
+                <input id="phone" type="tel" placeholder="+7 (000) 000-00-00" class="_req _phone">
+                <span>Поле заполнено неверно!</span>
+            </div>
+            <div class="popup-callback__block">
+                <label for="mail">Электронная почта</label>
+                <input id="mail" type="email" placeholder="example@mail.ru" class="_req">
+                <span>Поле заполнено неверно!</span>
+            </div>
+            <button class="button" type="submit">Отправить заявку</button>
+        </form>
+    </div>
+</div>
+
+<div class="popup-thanks-bg popup-bg">
+    <div class="popup-thanks popup">
+        <div class="popup-thanks__close popup-close">
+            <img src="img/cancel.svg" alt="">
+        </div>
+        <div class="popup-thanks__img">
+            <img src="img/check.png" alt="">
+        </div>
+        <div class="popup-thanks__title">Ваша заявка принята!</div>
+        <div class="popup-thanks__subtitle">Наши эксперты свяжутся с вами в ближайшее время</div>
+        <button class="button popup-thanks__close">Отлично!</button>
+    </div>
+</div>    <div class="content">
         <div class="main-screen">
 <header class="header">
     <div class="header__row">
@@ -51,7 +90,7 @@
                 <div class="main-screen__main">
                     <h1 class="main-screen__title">4PL&nbsp;логистика</h1>
                     <p class="main-screen__content">Вы&nbsp;строите бизнес. Мы&nbsp;сделаем все остальное</p>
-                    <button class="button">Отправить заявку</button>
+                    <button class="button popup-callback-open-btn">Отправить заявку</button>
                 </div>
             </div>
             <div id="svg" class="svg-animation">
@@ -4292,7 +4331,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="advantages__button button white-button">Отправить заявку</button>
+                <button class="advantages__button button white-button popup-callback-open-btn">Отправить заявку</button>
             </div>
         </div>
         <div class="about specialScroll">
@@ -4339,7 +4378,7 @@
                     <img src="img/partners/logo_airbnb.svg" alt="airbnb">
                     <img src="img/partners/logo_ibm.svg" alt="ibm">
                 </div>
-                <button class="partners__button button">Отправить заявку</button>
+                <button class="partners__button button popup-callback-open-btn">Отправить заявку</button>
             </div>
         </div>
     </div>
