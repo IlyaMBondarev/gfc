@@ -11,30 +11,30 @@ var toScroll = document.querySelectorAll('.toScroll');
 var specialScroll = document.querySelector('.specialScroll');
 var specialScrollRows = specialScroll.querySelector('.about__rows');
 var specialScrollRow = specialScrollRows.querySelectorAll('.about__row');
-toScroll.forEach(function (toScroll) {
-    if (toScroll.offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
-        toScroll.classList.add('hidden');
+for(var i = 0; i < toScroll.length; i++) {
+    if (toScroll[i].offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
+        toScroll[i].classList.add('hidden');
     }
-});
-specialScrollRow.forEach(function (row) {
-    if (row.offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
-        row.classList.add('row-hidden');
+}
+for(var i = 0; i < specialScrollRow.length; i++) {
+    if (specialScrollRow[i].offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
+        specialScrollRow[i].classList.add('row-hidden');
     }
-});
+}
 
 function scrollCheck() {
-    toScroll.forEach(function (toScroll) {
-        if (toScroll.offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
-            toScroll.classList.add('visible');
-            toScroll.classList.remove('hidden');
+    for(var i = 0; i < toScroll.length; i++) {
+        if (toScroll[i].offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
+            toScroll[i].classList.add('visible');
+            toScroll[i].classList.remove('hidden');
         }
-    });
-    specialScrollRow.forEach(function (row) {
-        if (row.offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
-            row.classList.add('row-visible');
-            row.classList.remove('row-hidden');
+    }
+    for(var i = 0; i < specialScrollRow.length; i++) {
+        if (specialScrollRow[i].offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
+            specialScrollRow[i].classList.add('row-visible');
+            specialScrollRow[i].classList.remove('row-hidden');
         }
-    });
+    }
 }
 
 window.addEventListener('scroll', scrollCheck); //скролл при нажатии на пункт меню
@@ -43,8 +43,8 @@ function closeBurger() {
     burgerInput.checked = false;
 }
 
-lists.forEach(function (list) {
-    var links = list.querySelectorAll('a');
+for (var i = 0; i < lists.length; i++) {
+    var links = lists[i].querySelectorAll('a');
 
     var _loop = function _loop(i) {
         links[i].addEventListener('click', function (event) {
@@ -62,7 +62,7 @@ lists.forEach(function (list) {
     for (var i = 0; i < links.length; i++) {
         _loop(i);
     }
-}); //жалюзи
+} //жалюзи
 
 var itemsBlock = document.querySelector('.offer__items');
 var items = itemsBlock.querySelectorAll('.item');
@@ -74,7 +74,7 @@ var arrowNext = arrowsBlock.querySelector('.offer__next');
 var _loop2 = function _loop2(i) {
     items[i].addEventListener('click', function () {
         if (document.documentElement.scrollWidth > 1270) {
-            if (indexOfActiveItem !== items[i]) {
+            if (indexOfActiveItem !== i) {
                 if (indexOfActiveItem !== -1) {
                     items[indexOfActiveItem].classList.remove('item-active');
                     items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
@@ -136,9 +136,9 @@ for (var i = 0; i < items.length; i++) {
 
 document.addEventListener('click', function (event) {
     var isOnItems = false;
-    items.forEach(function (item) {
-        return isOnItems = item.contains(event.target) ? true : isOnItems;
-    });
+    for(var i = 0; i < items.length; i++) {
+        isOnItems = items[i].contains(event.target) ? true : isOnItems;
+    }
 
     if (!isOnItems && !arrowsBlock.contains(event.target)) {
         if (document.documentElement.scrollWidth > 1270) {
@@ -162,8 +162,6 @@ document.addEventListener('click', function (event) {
             indexOfActiveItem = -1;
         }
     }
-
-    isOnItems = false;
 });
 arrowNext.addEventListener('click', function () {
     if (indexOfActiveItem === -1) {
@@ -268,7 +266,7 @@ arrowPrev.addEventListener('click', function () {
 
 var svg = document.getElementById('svg');
 var svgMap = document.getElementById('map');
-var svgPathsBlock = document.getElementById('svg-paths');
+var svgPathsBlock = $("#svg-paths");
 var svgPaths = [[3, 0, 200], [6, 3, 150], [5, 6, 200], [4, 6, 200], [2, 4, 150], [7, 0, 150], [1, 7, 250], [8, 5, 200], [9, 8, 200], [10, 9, 200], [11, 10, 200]];
 var svgItemsBlock = document.getElementById('svg');
 var svgItems = svgItemsBlock.querySelectorAll('img');
@@ -298,18 +296,19 @@ $(document).ready(function() {
             scope = 0.5;
             scopedArray = 0.75;
         }
-
+        var paths = '';
         for (var i = 0; i < svgPaths.length; i++) {
             var x = svgItems[svgPaths[i][0]].offsetLeft + svgItems[svgPaths[i][0]].offsetWidth / 2;
             var y = svgItems[svgPaths[i][0]].offsetTop + svgItems[svgPaths[i][0]].offsetHeight / 2;
             var xe = svgItems[svgPaths[i][1]].offsetLeft + svgItems[svgPaths[i][1]].offsetWidth / 2;
             var ye = svgItems[svgPaths[i][1]].offsetTop + svgItems[svgPaths[i][1]].offsetHeight / 2;
             var path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[i][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[i][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
-            svgPathsBlock.innerHTML += path;
+            paths += path;
         }
+        svgPathsBlock.append(paths);
     }, halfOfSpeed * svgItems.length);
     setTimeout(function () {
-        var svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
+        var svgNewPaths = $("#svg-paths .svg-path");
 
         for (var i = 0; i < svgNewPaths.length; i++) {
             svgNewPaths[i].style.opacity = "1";
@@ -332,7 +331,8 @@ $(window).resize(function() {
         scopedArray = 1;
     }
 
-    svgPathsBlock.innerHTML = '';
+    var paths = '';
+    svgPathsBlock.html();
 
     for (var i = 0; i < svgPaths.length; i++) {
         var x = svgItems[svgPaths[i][0]].offsetLeft + svgItems[svgPaths[i][0]].offsetWidth / 2;
@@ -340,11 +340,12 @@ $(window).resize(function() {
         var xe = svgItems[svgPaths[i][1]].offsetLeft + svgItems[svgPaths[i][1]].offsetWidth / 2;
         var ye = svgItems[svgPaths[i][1]].offsetTop + svgItems[svgPaths[i][1]].offsetHeight / 2;
         var path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[i][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[i][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
-        svgPathsBlock.innerHTML += path;
+        paths += path;
     }
+    svgPathsBlock.html(paths);
 
     setTimeout(function () {
-        var svgNewPaths = svgPathsBlock.querySelectorAll('.svg-path');
+        var svgNewPaths = $("#svg-paths .svg-path");
 
         for (var _i = 0; _i < svgNewPaths.length; _i++) {
             svgNewPaths[_i].style.opacity = "1";
@@ -377,15 +378,11 @@ function mask(event) {
 }
 
 var phones = document.querySelectorAll("._phone");
-phones.forEach(function (phone) {
-    return phone.addEventListener("input", mask, false);
-});
-phones.forEach(function (phone) {
-    return phone.addEventListener("focus", mask, false);
-});
-phones.forEach(function (phone) {
-    return phone.addEventListener("blur", mask, false);
-}); // validation
+for (var i = 0; i < phones.length; i++) {
+    phones[i].addEventListener("input", mask, false);
+    phones[i].addEventListener("focus", mask, false);
+    phones[i].addEventListener("blur", mask, false);
+} // validation
 
 function formSend(form) {
     var error = formValidate(form);
@@ -439,11 +436,11 @@ if ($('.popup-callback-bg').length) {
             popupCallbackBackground.classList.remove('popup-callback-bg-visible');
         }
     });
-    popupCallbackOpenBtns.forEach(function (button) {
-        button.addEventListener('click', function () {
+    for (var i = 0; i < popupCallbackOpenBtns.length; i++) {
+        popupCallbackOpenBtns[i].addEventListener('click', function () {
             popupCallbackBackground.classList.add('popup-callback-bg-visible');
         });
-    });
+    }
     popupCallbackBackground.addEventListener('click', function (event) {
         if (event.target === popupCallbackBackground) {
             popupCallbackBackground.classList.remove('popup-callback-bg-visible');
@@ -457,9 +454,9 @@ if ($('.popup-callback-bg').length) {
             popupThanksBackground.classList.remove('popup-thanks-bg-visible');
         }
     });
-    popupThanksCloseBtns.forEach(function (button) {
-        button.addEventListener('click', function () {
+    for (var i = 0; i < popupThanksCloseBtns.length; i++) {
+        popupThanksCloseBtns[i].addEventListener('click', function () {
             popupThanksBackground.classList.remove('popup-thanks-bg-visible');
         });
-    });
+    }
 }
