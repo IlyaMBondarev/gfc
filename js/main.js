@@ -5,48 +5,50 @@ document.querySelector('.page').classList.add('loaded');
 
 "use strict";
 
-var burgerInput = document.getElementById('burger');
-var lists = document.querySelector('.header').querySelectorAll('ul');
-var toScroll = document.querySelectorAll('.toScroll');
-var specialScroll = document.querySelector('.specialScroll');
-var specialScrollRows = specialScroll.querySelector('.about__rows');
-var specialScrollRow = specialScrollRows.querySelectorAll('.about__row');
-for(var i = 0; i < toScroll.length; i++) {
+let burgerInput = document.getElementById('burger');
+let lists = document.querySelector('.header').querySelectorAll('ul');
+let toScroll = document.querySelectorAll('.toScroll');
+let specialScroll = document.querySelector('.specialScroll');
+let specialScrollRows = specialScroll.querySelector('.about__rows');
+let specialScrollRow = specialScrollRows.querySelectorAll('.about__row');
+for(let i = 0; i < toScroll.length; i++) {
     if (toScroll[i].offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
         toScroll[i].classList.add('hidden');
     }
 }
-for(var i = 0; i < specialScrollRow.length; i++) {
-    if (specialScrollRow[i].offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
-        specialScrollRow[i].classList.add('row-hidden');
-    }
+
+if (specialScrollRows.offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
+    specialScrollRows.classList.add('rows-hidden');
 }
 
 function scrollCheck() {
-    for(var i = 0; i < toScroll.length; i++) {
+    for(let i = 0; i < toScroll.length; i++) {
         if (toScroll[i].offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
             toScroll[i].classList.add('visible');
             toScroll[i].classList.remove('hidden');
         }
     }
-    for(var i = 0; i < specialScrollRow.length; i++) {
-        if (specialScrollRow[i].offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
-            specialScrollRow[i].classList.add('row-visible');
-            specialScrollRow[i].classList.remove('row-hidden');
+    if (specialScrollRows.offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
+        for(let i = 0; i < specialScrollRow.length; i++) {
+            specialScrollRow[i].style.transition = 'transform 1.2s ease '.concat(0.2 * i, "s");
         }
+        specialScrollRows.classList.add('rows-visible');
+        specialScrollRows.classList.remove('rows-hidden');
     }
 }
 
-window.addEventListener('scroll', scrollCheck); //скролл при нажатии на пункт меню
+window.addEventListener('scroll', scrollCheck);
+
+//скролл при нажатии на пункт меню
 
 function closeBurger() {
     burgerInput.checked = false;
 }
 
-for (var i = 0; i < lists.length; i++) {
-    var links = lists[i].querySelectorAll('a');
+for (let i = 0; i < lists.length; i++) {
+    let links = lists[i].querySelectorAll('a');
 
-    var _loop = function _loop(i) {
+    let _loop = function _loop(i) {
         links[i].addEventListener('click', function (event) {
             event.preventDefault();
 
@@ -59,35 +61,34 @@ for (var i = 0; i < lists.length; i++) {
         });
     };
 
-    for (var i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.length; i++) {
         _loop(i);
     }
-} //жалюзи
+}
 
-var itemsBlock = document.querySelector('.offer__items');
-var items = itemsBlock.querySelectorAll('.item');
-var indexOfActiveItem = -1;
-var arrowsBlock = document.querySelector('.offer__navigation');
-var arrowPrev = arrowsBlock.querySelector('.offer__prev');
-var arrowNext = arrowsBlock.querySelector('.offer__next');
+//жалюзи
 
-var _loop2 = function _loop2(i) {
-    items[i].addEventListener('click', function () {
+let itemsBlock = document.querySelector('.offer__items');
+let items = itemsBlock.querySelectorAll('.item');
+let indexOfActiveItem = -1;
+
+for (let index = 0; index < items.length; index++) {
+    items[index].addEventListener('click', function () {
         if (document.documentElement.scrollWidth > 1270) {
-            if (indexOfActiveItem !== i) {
+            if (indexOfActiveItem !== index) {
                 if (indexOfActiveItem !== -1) {
                     items[indexOfActiveItem].classList.remove('item-active');
                     items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
                     items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
                 }
 
-                indexOfActiveItem = i;
+                indexOfActiveItem = index;
                 items[indexOfActiveItem].classList.add('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
                 items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-                for (var j = 0; j < items.length; j++) {
+                for (let j = 0; j < items.length; j++) {
                     if (j !== indexOfActiveItem) {
                         items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
                         items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
@@ -98,7 +99,7 @@ var _loop2 = function _loop2(i) {
                 items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
 
-                for (var _j5 = 0; _j5 < items.length; _j5++) {
+                for (let _j5 = 0; _j5 < items.length; _j5++) {
                     if (_j5 !== indexOfActiveItem) {
                         items[_j5].querySelector('.item__title_hor').classList.add('item__title-visible');
 
@@ -109,14 +110,13 @@ var _loop2 = function _loop2(i) {
                 indexOfActiveItem = -1;
             }
         } else {
-            if (items[indexOfActiveItem] !== items[i]) {
+            if (items[indexOfActiveItem] !== items[index]) {
                 if (indexOfActiveItem !== -1) {
                     items[indexOfActiveItem].classList.remove('item-active');
                     items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
                     items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
                 }
-
-                indexOfActiveItem = i;
+                indexOfActiveItem = index;
                 items[indexOfActiveItem].classList.add('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
@@ -128,26 +128,64 @@ var _loop2 = function _loop2(i) {
             }
         }
     });
-};
-
-for (var i = 0; i < items.length; i++) {
-    _loop2(i);
+    if (document.documentElement.scrollWidth > 1270) {
+        items[index].addEventListener('mouseenter', function () {
+            if (indexOfActiveItem !== index) {
+                if (indexOfActiveItem !== -1) {
+                    items[indexOfActiveItem].classList.remove('item-active');
+                    items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                    items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                    items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
+                }
+                items[index].classList.add('item-active');
+                items[index].querySelector('.mask').classList.add('mask-visible');
+                items[index].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                items[index].querySelector('.item__title_ver').classList.remove('item__title-visible');
+                for (let j = 0; j < items.length; j++) {
+                    if (j !== index) {
+                        items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                        items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+                    }
+                }
+            }
+        })
+        items[index].addEventListener('mouseleave', function () {
+            if (indexOfActiveItem !== index) {
+                if (indexOfActiveItem !== -1) {
+                    items[indexOfActiveItem].classList.add('item-active');
+                    items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+                    items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                    items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
+                    items[index].querySelector('.item__title_ver').classList.add('item__title-visible');
+                }
+                items[index].classList.remove('item-active');
+                items[index].querySelector('.mask').classList.remove('mask-visible');
+                for (let j = 0; j < items.length; j++) {
+                    if (j !== indexOfActiveItem) {
+                        items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                        items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+                    }
+                }
+            }
+        })
+    }
 }
 
+
 document.addEventListener('click', function (event) {
-    var isOnItems = false;
-    for(var i = 0; i < items.length; i++) {
+    let isOnItems = false;
+    for(let i = 0; i < items.length; i++) {
         isOnItems = items[i].contains(event.target) ? true : isOnItems;
     }
 
-    if (!isOnItems && !arrowsBlock.contains(event.target)) {
+    if (!isOnItems /* &&!arrowsBlock.contains(event.target)*/) { //стрелки
         if (document.documentElement.scrollWidth > 1270) {
             if (indexOfActiveItem !== -1) {
                 items[indexOfActiveItem].classList.remove('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
                 items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
 
-                for (var _i = 0; _i < items.length; _i++) {
+                for (let _i = 0; _i < items.length; _i++) {
                     items[_i].querySelector('.item__title_hor').classList.add('item__title-visible');
 
                     items[_i].querySelector('.item__title_ver').classList.remove('item__title-visible');
@@ -163,6 +201,13 @@ document.addEventListener('click', function (event) {
         }
     }
 });
+
+/* стрелки
+
+let arrowsBlock = document.querySelector('.offer__navigation');
+let arrowPrev = arrowsBlock.querySelector('.offer__prev');
+let arrowNext = arrowsBlock.querySelector('.offer__next');
+
 arrowNext.addEventListener('click', function () {
     if (indexOfActiveItem === -1) {
         indexOfActiveItem = 0;
@@ -171,7 +216,7 @@ arrowNext.addEventListener('click', function () {
         items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
         items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-        for (var j = 0; j < items.length; j++) {
+        for (let j = 0; j < items.length; j++) {
             if (j !== indexOfActiveItem) {
                 items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
                 items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
@@ -187,7 +232,7 @@ arrowNext.addEventListener('click', function () {
         items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
         items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-        for (var _j = 0; _j < items.length; _j++) {
+        for (let _j = 0; _j < items.length; _j++) {
             if (_j !== indexOfActiveItem) {
                 items[_j].querySelector('.item__title_hor').classList.remove('item__title-visible');
 
@@ -204,7 +249,7 @@ arrowNext.addEventListener('click', function () {
         items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
         items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-        for (var _j2 = 0; _j2 < items.length; _j2++) {
+        for (let _j2 = 0; _j2 < items.length; _j2++) {
             if (_j2 !== indexOfActiveItem) {
                 items[_j2].querySelector('.item__title_hor').classList.remove('item__title-visible');
 
@@ -221,7 +266,7 @@ arrowPrev.addEventListener('click', function () {
         items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
         items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-        for (var j = 0; j < items.length; j++) {
+        for (let j = 0; j < items.length; j++) {
             if (j !== indexOfActiveItem) {
                 items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
                 items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
@@ -237,7 +282,7 @@ arrowPrev.addEventListener('click', function () {
         items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
         items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-        for (var _j3 = 0; _j3 < items.length; _j3++) {
+        for (let _j3 = 0; _j3 < items.length; _j3++) {
             if (_j3 !== indexOfActiveItem) {
                 items[_j3].querySelector('.item__title_hor').classList.remove('item__title-visible');
 
@@ -254,7 +299,7 @@ arrowPrev.addEventListener('click', function () {
         items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
         items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-        for (var _j4 = 0; _j4 < items.length; _j4++) {
+        for (let _j4 = 0; _j4 < items.length; _j4++) {
             if (_j4 !== indexOfActiveItem) {
                 items[_j4].querySelector('.item__title_hor').classList.remove('item__title-visible');
 
@@ -262,29 +307,31 @@ arrowPrev.addEventListener('click', function () {
             }
         }
     }
-}); // svg-анимация
+});*/
 
-var svg = document.getElementById('svg');
-var svgMap = document.getElementById('map');
-var svgPathsBlock = $("#svg-paths");
-var svgPaths = [[3, 0, 200], [6, 3, 150], [5, 6, 200], [4, 6, 200], [2, 4, 150], [7, 0, 150], [1, 7, 250], [8, 5, 200], [9, 8, 200], [10, 9, 200], [11, 10, 200]];
-var svgItemsBlock = document.getElementById('svg');
-var svgItems = svgItemsBlock.querySelectorAll('img');
-var speed = 600;
-var halfOfSpeed = speed / 2;
-var scope = 1;
-var scopedArray = 1;
+// svg-анимация
+
+let svg = document.getElementById('svg');
+let svgMap = document.getElementById('map');
+let svgPathsBlock = $("#svg-paths");
+let svgPaths = [[3, 0, 200], [6, 3, 150], [5, 6, 200], [4, 6, 200], [2, 4, 150], [7, 0, 150], [1, 7, 250], [8, 5, 200], [9, 8, 200], [10, 9, 200], [11, 10, 200]];
+let svgItemsBlock = document.getElementById('svg');
+let svgItems = svgItemsBlock.querySelectorAll('img');
+let speed = 600;
+let halfOfSpeed = speed / 2;
+let scope = 1;
+let scopedArray = 1;
 
 $(document).ready(function() {
     svgMap.style.opacity = '1';
     setTimeout(function () {
-        var _loop = function _loop(i) {
+        let _loop = function _loop(i) {
             setTimeout(function () {
                 svgItems[i].style.animation = '1s svg-show forwards';
             }, speed * (i + 1));
         };
 
-        for (var i = 0; i < svgItems.length; i++) {
+        for (let i = 0; i < svgItems.length; i++) {
             _loop(i);
         }
     }, halfOfSpeed);
@@ -296,25 +343,25 @@ $(document).ready(function() {
             scope = 0.5;
             scopedArray = 0.75;
         }
-        var paths = '';
-        for (var i = 0; i < svgPaths.length; i++) {
-            var x = svgItems[svgPaths[i][0]].offsetLeft + svgItems[svgPaths[i][0]].offsetWidth / 2;
-            var y = svgItems[svgPaths[i][0]].offsetTop + svgItems[svgPaths[i][0]].offsetHeight / 2;
-            var xe = svgItems[svgPaths[i][1]].offsetLeft + svgItems[svgPaths[i][1]].offsetWidth / 2;
-            var ye = svgItems[svgPaths[i][1]].offsetTop + svgItems[svgPaths[i][1]].offsetHeight / 2;
-            var path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[i][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[i][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
+        let paths = '';
+        for (let a = 0; a < svgPaths.length; a++) {
+            let x = svgItems[svgPaths[a][0]].offsetLeft + svgItems[svgPaths[a][0]].offsetWidth / 2;
+            let y = svgItems[svgPaths[a][0]].offsetTop + svgItems[svgPaths[a][0]].offsetHeight / 2;
+            let xe = svgItems[svgPaths[a][1]].offsetLeft + svgItems[svgPaths[a][1]].offsetWidth / 2;
+            let ye = svgItems[svgPaths[a][1]].offsetTop + svgItems[svgPaths[a][1]].offsetHeight / 2;
+            let path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[a][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[a][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
             paths += path;
         }
         svgPathsBlock.html(paths);
     }, halfOfSpeed * svgItems.length);
     setTimeout(function () {
-        var svgNewPaths = $("#svg-paths .svg-path");
+        let svgNewPaths = $("#svg-paths .svg-path");
 
-        for (var i = 0; i < svgNewPaths.length; i++) {
-            svgNewPaths[i].style.opacity = "1";
-            svgNewPaths[i].style.strokeDasharray = "0 ".concat(500 * scopedArray, " 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5");
-            svgNewPaths[i].style.transitionDelay = "".concat(0.8 * i, "s");
-            svgNewPaths[i].style.strokeDashoffset = "".concat(500 * scopedArray);
+        for (let a = 0; a < svgNewPaths.length; a++) {
+            svgNewPaths[a].style.opacity = "1";
+            svgNewPaths[a].style.strokeDasharray = "0 ".concat(500 * scopedArray, " 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5");
+            svgNewPaths[a].style.transitionDelay = "".concat(0.8 * a, "s");
+            svgNewPaths[a].style.strokeDashoffset = "".concat(500 * scopedArray);
         }
     }, halfOfSpeed * svgItems.length + 20);
 })
@@ -331,23 +378,23 @@ $(window).resize(function() {
         scopedArray = 1;
     }
 
-    var paths = '';
+    let paths = '';
     svgPathsBlock.html();
 
-    for (var i = 0; i < svgPaths.length; i++) {
-        var x = svgItems[svgPaths[i][0]].offsetLeft + svgItems[svgPaths[i][0]].offsetWidth / 2;
-        var y = svgItems[svgPaths[i][0]].offsetTop + svgItems[svgPaths[i][0]].offsetHeight / 2;
-        var xe = svgItems[svgPaths[i][1]].offsetLeft + svgItems[svgPaths[i][1]].offsetWidth / 2;
-        var ye = svgItems[svgPaths[i][1]].offsetTop + svgItems[svgPaths[i][1]].offsetHeight / 2;
-        var path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[i][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[i][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
+    for (let i = 0; i < svgPaths.length; i++) {
+        let x = svgItems[svgPaths[i][0]].offsetLeft + svgItems[svgPaths[i][0]].offsetWidth / 2;
+        let y = svgItems[svgPaths[i][0]].offsetTop + svgItems[svgPaths[i][0]].offsetHeight / 2;
+        let xe = svgItems[svgPaths[i][1]].offsetLeft + svgItems[svgPaths[i][1]].offsetWidth / 2;
+        let ye = svgItems[svgPaths[i][1]].offsetTop + svgItems[svgPaths[i][1]].offsetHeight / 2;
+        let path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[i][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[i][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
         paths += path;
     }
     svgPathsBlock.html(paths);
 
     setTimeout(function () {
-        var svgNewPaths = $("#svg-paths .svg-path");
+        let svgNewPaths = $("#svg-paths .svg-path");
 
-        for (var _i = 0; _i < svgNewPaths.length; _i++) {
+        for (let _i = 0; _i < svgNewPaths.length; _i++) {
             svgNewPaths[_i].style.opacity = "1";
             svgNewPaths[_i].style.strokeDasharray = "0 ".concat(500 * scopedArray, " 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5");
             svgNewPaths[_i].style.transitionDelay = "".concat(0.8 * _i, "s");
@@ -363,7 +410,7 @@ $(window).resize(function() {
 "use strict";
 
 function mask(event) {
-    var matrix = "+7 (___) ___-__-__",
+    let matrix = "+7 (___) ___-__-__",
         i = 0,
         def = matrix.replace(/\D/g, ""),
         val = this.value.replace(/\D/g, "");
@@ -377,15 +424,17 @@ function mask(event) {
     }
 }
 
-var phones = document.querySelectorAll("._phone");
-for (var i = 0; i < phones.length; i++) {
+let phones = document.querySelectorAll("._phone");
+for (let i = 0; i < phones.length; i++) {
     phones[i].addEventListener("input", mask, false);
     phones[i].addEventListener("focus", mask, false);
     phones[i].addEventListener("blur", mask, false);
-} // validation
+}
+
+// validation
 
 function formSend(form) {
-    var error = formValidate(form);
+    let error = formValidate(form);
 
     if (error === 0) {
         //отправка формы
@@ -396,11 +445,11 @@ function formSend(form) {
 }
 
 function formValidate(form) {
-    var error = 0;
-    var formReq = form.querySelectorAll('._req');
+    let error = 0;
+    let formReq = form.querySelectorAll('._req');
 
-    for (var index = 0; index < formReq.length; index++) {
-        var input = formReq[index];
+    for (let index = 0; index < formReq.length; index++) {
+        let input = formReq[index];
         input.classList.remove('_error');
 
         if (input.classList.contains('_phone')) {
@@ -421,22 +470,22 @@ function formValidate(form) {
 
 if ($('.popup-callback-bg').length) {
 
-    var popupCallbackBackground = document.querySelector('.popup-callback-bg');
-    var popupCallbackOpenBtns = document.querySelectorAll('.popup-callback-open-btn');
-    var popupCallbackCloseBtn = popupCallbackBackground.querySelector('.popup-callback__close');
-    var popupCallbackForm = popupCallbackBackground.querySelector('.popup-callback__form');
-    var popupThanksBackground = document.querySelector('.popup-thanks-bg');
-    var popupThanksCloseBtns = popupThanksBackground.querySelectorAll('.popup-thanks__close');
+    let popupCallbackBackground = document.querySelector('.popup-callback-bg');
+    let popupCallbackOpenBtns = document.querySelectorAll('.popup-callback-open-btn');
+    let popupCallbackCloseBtn = popupCallbackBackground.querySelector('.popup-callback__close');
+    let popupCallbackForm = popupCallbackBackground.querySelector('.popup-callback__form');
+    let popupThanksBackground = document.querySelector('.popup-thanks-bg');
+    let popupThanksCloseBtns = popupThanksBackground.querySelectorAll('.popup-thanks__close');
     popupCallbackForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        var isSend = formSend(popupCallbackForm);
+        let isSend = formSend(popupCallbackForm);
 
         if (isSend) {
             popupThanksBackground.classList.add('popup-thanks-bg-visible');
             popupCallbackBackground.classList.remove('popup-callback-bg-visible');
         }
     });
-    for (var i = 0; i < popupCallbackOpenBtns.length; i++) {
+    for (let i = 0; i < popupCallbackOpenBtns.length; i++) {
         popupCallbackOpenBtns[i].addEventListener('click', function () {
             popupCallbackBackground.classList.add('popup-callback-bg-visible');
         });
@@ -454,7 +503,7 @@ if ($('.popup-callback-bg').length) {
             popupThanksBackground.classList.remove('popup-thanks-bg-visible');
         }
     });
-    for (var i = 0; i < popupThanksCloseBtns.length; i++) {
+    for (let i = 0; i < popupThanksCloseBtns.length; i++) {
         popupThanksCloseBtns[i].addEventListener('click', function () {
             popupThanksBackground.classList.remove('popup-thanks-bg-visible');
         });
