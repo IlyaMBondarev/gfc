@@ -305,7 +305,7 @@ $(document).ready(function() {
             var path = "<path d=\"M".concat(x, " ").concat(y, " C ").concat(x, " ").concat(y - scope * svgPaths[i][2], ", ").concat(xe, " ").concat(ye - scope * svgPaths[i][2], " ").concat(xe, " ").concat(ye, "\" stroke=\"white\" fill=\"transparent\" class=\"svg-path\" stroke-width=\"2\"></path>");
             paths += path;
         }
-        svgPathsBlock.append(paths);
+        svgPathsBlock.html(paths);
     }, halfOfSpeed * svgItems.length);
     setTimeout(function () {
         var svgNewPaths = $("#svg-paths .svg-path");
