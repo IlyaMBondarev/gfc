@@ -68,11 +68,11 @@ for (let i = 0; i < lists.length; i++) {
 
 //жалюзи
 
-let itemsBlock = document.querySelector('.offer__items');
-let items = itemsBlock.querySelectorAll('.item');
-let indexOfActiveItem = -1;
+var itemsBlock = document.querySelector('.offer__items');
+var items = itemsBlock.querySelectorAll('.item');
+var indexOfActiveItem = -1;
 
-for (let index = 0; index < items.length; index++) {
+var _loop2 = function _loop2(index) {
     items[index].addEventListener('click', function () {
         if (document.documentElement.scrollWidth > 1270) {
             if (indexOfActiveItem !== index) {
@@ -88,7 +88,7 @@ for (let index = 0; index < items.length; index++) {
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
                 items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
 
-                for (let j = 0; j < items.length; j++) {
+                for (var j = 0; j < items.length; j++) {
                     if (j !== indexOfActiveItem) {
                         items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
                         items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
@@ -99,7 +99,7 @@ for (let index = 0; index < items.length; index++) {
                 items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
 
-                for (let _j5 = 0; _j5 < items.length; _j5++) {
+                for (var _j5 = 0; _j5 < items.length; _j5++) {
                     if (_j5 !== indexOfActiveItem) {
                         items[_j5].querySelector('.item__title_hor').classList.add('item__title-visible');
 
@@ -116,6 +116,7 @@ for (let index = 0; index < items.length; index++) {
                     items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
                     items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
                 }
+
                 indexOfActiveItem = index;
                 items[indexOfActiveItem].classList.add('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
@@ -128,6 +129,7 @@ for (let index = 0; index < items.length; index++) {
             }
         }
     });
+
     if (document.documentElement.scrollWidth > 1270) {
         items[index].addEventListener('mouseenter', function () {
             if (indexOfActiveItem !== index) {
@@ -137,18 +139,20 @@ for (let index = 0; index < items.length; index++) {
                     items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
                     items[indexOfActiveItem].querySelector('.item__title_ver').classList.add('item__title-visible');
                 }
+
                 items[index].classList.add('item-active');
                 items[index].querySelector('.mask').classList.add('mask-visible');
                 items[index].querySelector('.item__title_hor').classList.remove('item__title-visible');
                 items[index].querySelector('.item__title_ver').classList.remove('item__title-visible');
-                for (let j = 0; j < items.length; j++) {
+
+                for (var j = 0; j < items.length; j++) {
                     if (j !== index) {
                         items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
                         items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
                     }
                 }
             }
-        })
+        });
         items[index].addEventListener('mouseleave', function () {
             if (indexOfActiveItem !== index) {
                 if (indexOfActiveItem !== -1) {
@@ -158,17 +162,23 @@ for (let index = 0; index < items.length; index++) {
                     items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
                     items[index].querySelector('.item__title_ver').classList.add('item__title-visible');
                 }
+
                 items[index].classList.remove('item-active');
                 items[index].querySelector('.mask').classList.remove('mask-visible');
-                for (let j = 0; j < items.length; j++) {
+
+                for (var j = 0; j < items.length; j++) {
                     if (j !== indexOfActiveItem) {
                         items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
                         items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
                     }
                 }
             }
-        })
+        });
     }
+};
+
+for (var index = 0; index < items.length; index++) {
+    _loop2(index);
 }
 
 
