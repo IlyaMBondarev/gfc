@@ -190,17 +190,25 @@ var _loop2 = function _loop2(index) {
                     items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
                     items[indexOfActiveItem].querySelector('.item__title_ver').classList.remove('item__title-visible');
                     items[index].querySelector('.item__title_ver').classList.add('item__title-visible');
+                    for (var j = 0; j < items.length; j++) {
+                        if (j !== indexOfActiveItem) {
+                            items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
+                            items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
+                        }
+                    }
+                } else {
+                    for (var j = 0; j < items.length; j++) {
+                        if (j !== indexOfActiveItem) {
+                            items[j].querySelector('.item__title_hor').classList.add('item__title-visible');
+                            items[j].querySelector('.item__title_ver').classList.remove('item__title-visible');
+                        }
+                    }
                 }
 
                 items[index].classList.remove('item-active');
                 items[index].querySelector('.mask').classList.remove('mask-visible');
 
-                for (var j = 0; j < items.length; j++) {
-                    if (j !== indexOfActiveItem) {
-                        items[j].querySelector('.item__title_hor').classList.remove('item__title-visible');
-                        items[j].querySelector('.item__title_ver').classList.add('item__title-visible');
-                    }
-                }
+
             }
         });
     }
