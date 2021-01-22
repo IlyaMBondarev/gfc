@@ -14,7 +14,7 @@ function changeHeader() {
         header.classList.remove('header-white');
         header.classList.remove('header-light-gradient');
         header.classList.add('header-dark-gradient');
-    } else if (headerToLightGradient.offsetTop + headerToLightGradient.offsetHeight > document.documentElement.scrollTop + header.scrollHeight/2 && headerToLightGradient.offsetTop < document.documentElement.scrollTop + header.scrollHeight/2) {
+    } else if (headerToLightGradient.offsetTop + headerToLightGradient.offsetHeight > document.documentElement.scrollTop + header.scrollHeight && headerToLightGradient.offsetTop < document.documentElement.scrollTop + header.scrollHeight/2) {
         header.classList.remove('header-white');
         header.classList.remove('header-dark-gradient');
         header.classList.add('header-light-gradient');
