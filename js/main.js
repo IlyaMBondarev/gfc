@@ -5,12 +5,35 @@ document.querySelector('.page').classList.add('loaded');
 
 "use strict";
 
+let header = document.querySelector('.header');
+let headerToDarkGradient = document.querySelector('.header-to-dark-gradient');
+let headerToLightGradient = document.querySelector('.header-to-light-gradient');
+
+function changeHeader() {
+    if (headerToDarkGradient.offsetTop + headerToDarkGradient.offsetHeight > document.documentElement.scrollTop + header.scrollHeight/2) {
+        header.classList.remove('header-white');
+        header.classList.remove('header-light-gradient');
+        header.classList.add('header-dark-gradient');
+    } else if (headerToLightGradient.offsetTop + headerToLightGradient.offsetHeight > document.documentElement.scrollTop + header.scrollHeight/2 && headerToLightGradient.offsetTop < document.documentElement.scrollTop + header.scrollHeight/2) {
+        header.classList.remove('header-white');
+        header.classList.remove('header-dark-gradient');
+        header.classList.add('header-light-gradient');
+    } else {
+        header.classList.remove('header-light-gradient');
+        header.classList.remove('header-dark-gradient');
+        header.classList.add('header-white');
+    }
+}
+
+changeHeader(header);
+
 let burgerInput = document.getElementById('burger');
 let lists = document.querySelector('.header').querySelectorAll('ul');
 let toScroll = document.querySelectorAll('.toScroll');
 let specialScroll = document.querySelector('.specialScroll');
 let specialScrollRows = specialScroll.querySelector('.about__rows');
 let specialScrollRow = specialScrollRows.querySelectorAll('.about__row');
+
 for(let i = 0; i < toScroll.length; i++) {
     if (toScroll[i].offsetTop > document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
         toScroll[i].classList.add('hidden');
@@ -22,6 +45,7 @@ if (specialScrollRows.offsetTop > document.documentElement.scrollTop + 0.8 * doc
 }
 
 function scrollCheck() {
+    changeHeader(header);
     for(let i = 0; i < toScroll.length; i++) {
         if (toScroll[i].offsetTop <= document.documentElement.scrollTop + 0.8 * document.documentElement.clientHeight) {
             toScroll[i].classList.add('visible');
@@ -35,6 +59,7 @@ function scrollCheck() {
         specialScrollRows.classList.add('rows-visible');
         specialScrollRows.classList.remove('rows-hidden');
     }
+
 }
 
 window.addEventListener('scroll', scrollCheck);
@@ -114,16 +139,20 @@ var _loop2 = function _loop2(index) {
                 if (indexOfActiveItem !== -1) {
                     items[indexOfActiveItem].classList.remove('item-active');
                     items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                    items[indexOfActiveItem].style.height = '';
                     items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
                 }
 
                 indexOfActiveItem = index;
                 items[indexOfActiveItem].classList.add('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
+                items[indexOfActiveItem].querySelector('.item__back').style.maxWidth = 'none';
+                items[indexOfActiveItem].style.height = `${items[indexOfActiveItem].querySelector('.mask__main').scrollHeight + 8}px`;
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
             } else {
                 items[indexOfActiveItem].classList.remove('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+                items[indexOfActiveItem].style.height = '';
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
                 indexOfActiveItem = -1;
             }
@@ -206,6 +235,7 @@ document.addEventListener('click', function (event) {
         } else if (indexOfActiveItem !== -1) {
             items[indexOfActiveItem].classList.remove('item-active');
             items[indexOfActiveItem].querySelector('.mask').classList.remove('mask-visible');
+            items[indexOfActiveItem].style.height = '';
             items[indexOfActiveItem].querySelector('.item__title_hor').classList.add('item__title-visible');
             indexOfActiveItem = -1;
         }
