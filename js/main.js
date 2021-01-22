@@ -147,7 +147,7 @@ var _loop2 = function _loop2(index) {
                 items[indexOfActiveItem].classList.add('item-active');
                 items[indexOfActiveItem].querySelector('.mask').classList.add('mask-visible');
                 items[indexOfActiveItem].querySelector('.item__back').style.maxWidth = 'none';
-                items[indexOfActiveItem].style.height = `${items[indexOfActiveItem].querySelector('.mask__main').scrollHeight + 8}px`;
+                items[indexOfActiveItem].style.height = "".concat(items[indexOfActiveItem].querySelector('.mask__main').scrollHeight + 8, "px");
                 items[indexOfActiveItem].querySelector('.item__title_hor').classList.remove('item__title-visible');
             } else {
                 items[indexOfActiveItem].classList.remove('item-active');
